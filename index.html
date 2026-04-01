@@ -3,203 +3,569 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Undangan Pernikahan Digital - Naufal & Imel</title>
+    <title>Undangan Pernikahan Digital — Naufal & Imel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header/Sampul -->
-    <section class="header">
-        <div class="decorative-shapes">
-            <div class="shape shape-1"></div>
-            <div class="shape shape-2"></div>
-            <div class="shape shape-3"></div>
+
+    <!-- Particle Canvas -->
+    <canvas id="particles" class="particles-canvas"></canvas>
+
+    <!-- ═══ HERO SECTION ═══ -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="hero-overlay"></div>
+            <div class="hero-ornament top-left"></div>
+            <div class="hero-ornament top-right"></div>
+            <div class="hero-ornament bottom-left"></div>
+            <div class="hero-ornament bottom-right"></div>
         </div>
-        <div class="header-content">
-            <div class="header-animation">
-                <h1><i class="fas fa-heart"></i> Kami Mengundang Anda <i class="fas fa-heart"></i></h1>
+
+        <div class="hero-content">
+            <div class="hero-tag animate-fadeup" style="--d:0.1s">
+                <span class="tag-line"></span>
+                <span>UNDANGAN PERNIKAHAN</span>
+                <span class="tag-line"></span>
             </div>
-            <p class="names">Naufal & Imel</p>
-            <p class="subtitle">Merayakan Cinta dan Komitmen</p>
-            <p class="guest-name" id="guestName" style="display: none; font-size: 1.8rem; color: var(--primary-color); margin: 20px 0; font-weight: 700; font-family: 'Cormorant Garamond', serif; letter-spacing: 2px;"></p>
-            <div class="scroll-indicator">
-                <span>Scroll untuk lanjut</span>
-                <i class="fas fa-chevron-down"></i>
+
+            <div class="hero-bismillah animate-fadeup" style="--d:0.3s">
+                بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
             </div>
-            <button class="scroll-button" onclick="scrollToSection('main')">
-                <i class="fas fa-arrow-down"></i> Buka Undangan
-            </button>
+
+            <h1 class="hero-title animate-fadeup" style="--d:0.5s">
+                <span class="name-groom">Naufal</span>
+                <span class="hero-ampersand">&</span>
+                <span class="name-bride">Imel</span>
+            </h1>
+
+            <div class="hero-divider animate-fadeup" style="--d:0.7s">
+                <span class="divider-line"></span>
+                <i class="fas fa-star divider-icon"></i>
+                <span class="divider-diamond">◆</span>
+                <i class="fas fa-star divider-icon"></i>
+                <span class="divider-line"></span>
+            </div>
+
+            <p class="hero-date animate-fadeup" style="--d:0.9s">Sabtu, 15 Juni 2026</p>
+            <p class="hero-location animate-fadeup" style="--d:1.0s">Ballroom Mewah · Jakarta Pusat</p>
+
+            <p class="guest-name" id="guestName"></p>
+
+            <div class="hero-cta animate-fadeup" style="--d:1.2s">
+                <button class="btn-luxury" onclick="scrollToSection('main')">
+                    <span class="btn-text">Buka Undangan</span>
+                    <span class="btn-icon"><i class="fas fa-arrow-down"></i></span>
+                </button>
+            </div>
+
+            <div class="hero-scroll animate-fadeup" style="--d:1.4s">
+                <span class="scroll-line"></span>
+                <span class="scroll-text">Scroll</span>
+            </div>
         </div>
     </section>
 
-    <!-- Konten Utama -->
-    <section id="main" class="main-content">
+    <!-- ═══ MAIN / COUPLE SECTION ═══ -->
+    <section id="main" class="section-couple">
+        <div class="section-bg-pattern"></div>
         <div class="container">
-            <div class="invitation-card">
-                <h2>Dengan Mengucapkan Puji Syukur</h2>
-                <p>Kami memohon do'a dan restu untuk pernikahan kami</p>
-                
-                <div class="couple-names">
-                    <div class="groom">
-                        <h3>Budi Santoso</h3>
-                        <p>Putra dari Bapak Ahmad & Ibu Ratna</p>
+
+            <div class="section-header reveal">
+                <p class="section-pre">Dengan Penuh Rasa Syukur</p>
+                <h2 class="section-heading">Kami Memohon Do'a & Restu</h2>
+                <div class="heading-ornament"><span></span><i class="fas fa-heart"></i><span></span></div>
+            </div>
+
+            <div class="couple-block reveal">
+                <div class="person-card groom-card">
+                    <div class="person-photo-frame">
+                        <div class="person-photo-inner">
+                            <div class="person-initial">N</div>
+                        </div>
+                        <div class="photo-ring photo-ring-1"></div>
+                        <div class="photo-ring photo-ring-2"></div>
                     </div>
-                    <div class="separator">&</div>
-                    <div class="bride">
-                        <h3>Siti Nurhaliza</h3>
-                        <p>Putri dari Bapak Hasan & Ibu Laila</p>
+                    <h3 class="person-name">Budi Santoso</h3>
+                    <p class="person-role">Mempelai Pria</p>
+                    <div class="person-parents">
+                        <p>Putra dari</p>
+                        <p><strong>Bapak Ahmad & Ibu Ratna</strong></p>
                     </div>
                 </div>
 
-                <div class="event-details">
-                    <div class="event-item">
-                        <h4>📅 Hari & Tanggal</h4>
-                        <p>Sabtu, 15 Juni 2026</p>
+                <div class="couple-center">
+                    <div class="couple-rings">
+                        <svg viewBox="0 0 120 60" class="rings-svg">
+                            <circle cx="40" cy="30" r="25" fill="none" stroke="url(#goldGrad)" stroke-width="3"/>
+                            <circle cx="80" cy="30" r="25" fill="none" stroke="url(#goldGrad)" stroke-width="3"/>
+                            <defs>
+                                <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#d4af37"/>
+                                    <stop offset="50%" style="stop-color:#f5e07a"/>
+                                    <stop offset="100%" style="stop-color:#b8960c"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
                     </div>
-                    <div class="event-item">
-                        <h4>⏰ Waktu</h4>
-                        <p>Akad Nikah: 10:00 - 11:30 WIB<br>Resepsi: 12:00 - 17:00 WIB</p>
+                    <span class="couple-and">dan</span>
+                </div>
+
+                <div class="person-card bride-card">
+                    <div class="person-photo-frame">
+                        <div class="person-photo-inner">
+                            <div class="person-initial">I</div>
+                        </div>
+                        <div class="photo-ring photo-ring-1"></div>
+                        <div class="photo-ring photo-ring-2"></div>
                     </div>
-                    <div class="event-item">
-                        <h4>📍 Lokasi</h4>
-                        <p>Ballroom Mewah<br>Jl. Ahmad Yani No. 123<br>Jakarta Pusat, 12345</p>
-                        <button class="map-button" onclick="openMap()">Lihat Lokasi</button>
+                    <h3 class="person-name">Siti Nurhaliza</h3>
+                    <p class="person-role">Mempelai Wanita</p>
+                    <div class="person-parents">
+                        <p>Putri dari</p>
+                        <p><strong>Bapak Hasan & Ibu Laila</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EVENT DETAILS -->
+            <div class="events-row reveal">
+                <div class="event-card">
+                    <div class="event-card-icon"><i class="fas fa-mosque"></i></div>
+                    <h4 class="event-card-title">Akad Nikah</h4>
+                    <div class="event-card-detail">
+                        <p><i class="fas fa-calendar-alt"></i> Sabtu, 15 Juni 2026</p>
+                        <p><i class="fas fa-clock"></i> 10:00 – 11:30 WIB</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Masjid Al-Ikhlas</p>
                     </div>
                 </div>
 
+                <div class="event-divider-vertical"></div>
+
+                <div class="event-card">
+                    <div class="event-card-icon"><i class="fas fa-champagne-glasses"></i></div>
+                    <h4 class="event-card-title">Resepsi</h4>
+                    <div class="event-card-detail">
+                        <p><i class="fas fa-calendar-alt"></i> Sabtu, 15 Juni 2026</p>
+                        <p><i class="fas fa-clock"></i> 12:00 – 17:00 WIB</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Ballroom Mewah, Jl. Ahmad Yani No.123</p>
+                    </div>
+                    <button class="btn-map" onclick="openMap()">
+                        <i class="fas fa-location-dot"></i> Lihat Peta
+                    </button>
+                </div>
+            </div>
+
+            <!-- COUNTDOWN -->
+            <div class="countdown-wrapper reveal">
+                <p class="countdown-label-top">Menghitung Hari Menuju Hari Bahagia</p>
                 <div class="countdown" id="countdown">
                     <div class="countdown-item">
-                        <span class="countdown-value" id="days">0</span>
+                        <div class="countdown-value-wrap">
+                            <span class="countdown-value" id="days">00</span>
+                        </div>
                         <span class="countdown-label">Hari</span>
                     </div>
+                    <div class="countdown-sep">:</div>
                     <div class="countdown-item">
-                        <span class="countdown-value" id="hours">0</span>
+                        <div class="countdown-value-wrap">
+                            <span class="countdown-value" id="hours">00</span>
+                        </div>
                         <span class="countdown-label">Jam</span>
                     </div>
+                    <div class="countdown-sep">:</div>
                     <div class="countdown-item">
-                        <span class="countdown-value" id="minutes">0</span>
+                        <div class="countdown-value-wrap">
+                            <span class="countdown-value" id="minutes">00</span>
+                        </div>
                         <span class="countdown-label">Menit</span>
                     </div>
+                    <div class="countdown-sep">:</div>
                     <div class="countdown-item">
-                        <span class="countdown-value" id="seconds">0</span>
+                        <div class="countdown-value-wrap">
+                            <span class="countdown-value" id="seconds">00</span>
+                        </div>
                         <span class="countdown-label">Detik</span>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
-    <!-- RSVP -->
-    <section id="rsvp" class="rsvp-section">
+    <!-- ═══ QUOTE / LOVE VERSE ═══ -->
+    <section class="section-quote">
+        <div class="quote-bg"></div>
         <div class="container">
-            <h2 class="section-title">
-                <span class="title-icon"><i class="fas fa-images"></i></span>
-                Galeri Foto Prewed
-            </h2>
-            <p class="section-subtitle">Momen indah sebelum hari istimewa</p>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/400x500?text=Prewed+1" alt="Foto Prewed 1">
-                    <div class="gallery-overlay">
-                        <span><i class="fas fa-eye"></i> Lihat</span>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/400x500?text=Prewed+2" alt="Foto Prewed 2">
-                    <div class="gallery-overlay">
-                        <span><i class="fas fa-eye"></i> Lihat</span>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/400x500?text=Prewed+3" alt="Foto Prewed 3">
-                    <div class="gallery-overlay">
-                        <span><i class="fas fa-eye"></i> Lihat</span>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/400x500?text=Prewed+4" alt="Foto Prewed 4">
-                    <div class="gallery-overlay">
-                        <span><i class="fas fa-eye"></i> Lihat</span>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/400x500?text=Prewed+5" alt="Foto Prewed 5">
-                    <div class="gallery-overlay">
-                        <span><i class="fas fa-eye"></i> Lihat</span>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/400x500?text=Prewed+6" alt="Foto Prewed 6">
-                    <div class="gallery-overlay">
-                        <span><i class="fas fa-eye"></i> Lihat</span>
-                    </div>
-                </div>
+            <div class="quote-block reveal">
+                <div class="quote-ornament">"</div>
+                <p class="quote-arabic">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا</p>
+                <p class="quote-translation">Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya.</p>
+                <p class="quote-source">— QS. Ar-Rum: 21</p>
             </div>
         </div>
     </section>
 
-    <!-- Komentar & Ucapan -->
-    <section id="comments" class="comments-section">
+    <!-- ═══ GALLERY SECTION ═══ -->
+    <section id="gallery" class="section-gallery">
         <div class="container">
-            <h2 class="section-title">Ucapan & Doa dari Tamu</h2>
-            
-            <div class="comment-form">
-                <h3>Konfirmasi Kehadiran & Tinggalkan Ucapan</h3>
-                <form id="comment-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="comment-name"><i class="fas fa-user"></i> Nama Lengkap *</label>
-                            <input type="text" id="comment-name" placeholder="Masukkan nama lengkap" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="comment-email"><i class="fas fa-envelope"></i> Email *</label>
-                            <input type="email" id="comment-email" placeholder="Masukkan email" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="comment-attendance"><i class="fas fa-check-circle"></i> Konfirmasi Kehadiran *</label>
-                            <select id="comment-attendance" required>
-                                <option value="">-- Pilih --</option>
-                                <option value="hadir">✓ Hadir</option>
-                                <option value="tidak">✗ Tidak Hadir</option>
-                                <option value="mungkin">? Mungkin</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="comment-guests"><i class="fas fa-users"></i> Jumlah Tamu (Orang) *</label>
-                            <input type="number" id="comment-guests" min="1" max="5" placeholder="1" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label for="comment-text"><i class="fas fa-heart"></i> Ucapan, Doa, atau Saran *</label>
-                        <textarea id="comment-text" placeholder="Sampaikan ucapan, doa, atau saran Anda..." rows="4" required></textarea>
-                    </div>
-
-                    <button type="submit" class="submit-btn">
-                        <i class="fas fa-paper-plane"></i> Kirim
-                    </button>
-                </form>
-                <div id="comment-message" class="comment-message"></div>
+            <div class="section-header reveal">
+                <p class="section-pre">Momen Indah</p>
+                <h2 class="section-heading">Galeri Foto Prewed</h2>
+                <div class="heading-ornament"><span></span><i class="fas fa-images"></i><span></span></div>
+                <p class="section-sub">Sekilas perjalanan cinta kami sebelum hari istimewa</p>
             </div>
 
-            <div class="comments-list">
-                <h3>Ucapan & Konfirmasi Masuk</h3>
-                <div id="comments-container" class="comments-container">
-                    <p class="no-comments">Belum ada ucapan. Jadilah yang pertama!</p>
+            <div class="gallery-masonry reveal">
+                <div class="gallery-item gallery-tall" onclick="openLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80" alt="Prewed 1">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=600&q=80" alt="Prewed 2">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=600&q=80" alt="Prewed 3">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item gallery-wide" onclick="openLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1510076857177-7470076d4098?w=800&q=80" alt="Prewed 4">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=600&q=80" alt="Prewed 5">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item gallery-tall" onclick="openLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?w=600&q=80" alt="Prewed 6">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+        <img class="lightbox-img" id="lightboxImg" src="" alt="">
+    </div>
+
+    <!-- ═══ RSVP & UCAPAN ═══ -->
+    <section id="comments" class="section-rsvp">
+        <div class="rsvp-bg-pattern"></div>
+        <div class="container">
+
+            <div class="section-header reveal">
+                <p class="section-pre">Hadiri & Doakan Kami</p>
+                <h2 class="section-heading">Konfirmasi & Ucapan</h2>
+                <div class="heading-ornament"><span></span><i class="fas fa-envelope-open-heart"></i><span></span></div>
+            </div>
+
+            <div class="rsvp-layout reveal">
+                <!-- FORM -->
+                <div class="rsvp-form-card">
+                    <div class="form-card-header">
+                        <i class="fas fa-pen-nib"></i>
+                        <h3>Tinggalkan Ucapan</h3>
+                    </div>
+
+                    <form id="comment-form" class="luxury-form">
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Nama Lengkap <span>*</span></label>
+                                <div class="field-wrap">
+                                    <i class="fas fa-user field-icon"></i>
+                                    <input type="text" id="comment-name" placeholder="Masukkan nama lengkap" required>
+                                </div>
+                            </div>
+                            <div class="form-field">
+                                <label>Email <span>*</span></label>
+                                <div class="field-wrap">
+                                    <i class="fas fa-envelope field-icon"></i>
+                                    <input type="email" id="comment-email" placeholder="Masukkan email" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Konfirmasi Kehadiran <span>*</span></label>
+                                <div class="attendance-pills" id="attendancePills">
+                                    <input type="hidden" id="comment-attendance" required>
+                                    <button type="button" class="pill" data-value="hadir" onclick="selectAttendance(this)">
+                                        <i class="fas fa-check"></i> Hadir
+                                    </button>
+                                    <button type="button" class="pill" data-value="mungkin" onclick="selectAttendance(this)">
+                                        <i class="fas fa-question"></i> Mungkin
+                                    </button>
+                                    <button type="button" class="pill" data-value="tidak" onclick="selectAttendance(this)">
+                                        <i class="fas fa-times"></i> Tidak Hadir
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-field">
+                                <label>Jumlah Tamu <span>*</span></label>
+                                <div class="field-wrap">
+                                    <i class="fas fa-users field-icon"></i>
+                                    <input type="number" id="comment-guests" min="1" max="10" placeholder="1" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-field full">
+                            <label>Ucapan & Doa <span>*</span></label>
+                            <div class="field-wrap textarea-wrap">
+                                <i class="fas fa-heart field-icon textarea-icon"></i>
+                                <textarea id="comment-text" placeholder="Sampaikan ucapan dan doa tulus Anda untuk kedua mempelai…" rows="4" required></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Kirim Ucapan</span>
+                            <div class="btn-shimmer"></div>
+                        </button>
+                    </form>
+
+                    <div id="comment-message" class="form-feedback"></div>
+                </div>
+
+                <!-- UCAPAN MASUK -->
+                <div class="wishes-panel">
+                    <div class="wishes-header">
+                        <i class="fas fa-comments"></i>
+                        <h3>Ucapan Masuk</h3>
+                        <span class="wishes-count" id="wishesCount">0</span>
+                    </div>
+                    <div id="comments-container" class="wishes-list">
+                        <div class="empty-wishes">
+                            <i class="fas fa-heart empty-icon"></i>
+                            <p>Belum ada ucapan.</p>
+                            <p>Jadilah yang pertama!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
     <footer class="footer">
-        <p>&copy; 2026 Undangan Pernikahan Digital | Naufal & Imel</p>
-        <p>Terima kasih telah merayakan momen spesial kami</p>
+        <div class="footer-ornament"></div>
+        <div class="footer-content">
+            <div class="footer-names">Naufal & Imel</div>
+            <div class="footer-date">15 . 06 . 2026</div>
+            <div class="footer-divider">
+                <span></span><i class="fas fa-heart"></i><span></span>
+            </div>
+            <p class="footer-text">Terima kasih telah menjadi bagian dari hari istimewa kami</p>
+            <p class="footer-copy">© 2026 Undangan Pernikahan Digital</p>
+        </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+    // ═══ PARTICLES ═══
+    (function() {
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let W, H, particles = [];
+
+        function resize() {
+            W = canvas.width = window.innerWidth;
+            H = canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        function Particle() {
+            this.reset();
+        }
+        Particle.prototype.reset = function() {
+            this.x = Math.random() * W;
+            this.y = Math.random() * H + H;
+            this.size = Math.random() * 3 + 1;
+            this.speed = Math.random() * 0.6 + 0.2;
+            this.opacity = Math.random() * 0.5 + 0.1;
+            this.drift = (Math.random() - 0.5) * 0.5;
+        };
+        Particle.prototype.update = function() {
+            this.y -= this.speed;
+            this.x += this.drift;
+            if (this.y < -10) this.reset();
+        };
+        Particle.prototype.draw = function() {
+            ctx.save();
+            ctx.globalAlpha = this.opacity;
+            ctx.fillStyle = '#d4af37';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        };
+
+        for (let i = 0; i < 60; i++) {
+            const p = new Particle();
+            p.y = Math.random() * H;
+            particles.push(p);
+        }
+
+        function loop() {
+            ctx.clearRect(0, 0, W, H);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(loop);
+        }
+        loop();
+    })();
+
+    // ═══ SCROLL REVEAL ═══
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('revealed');
+                observer.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+
+    // ═══ COUNTDOWN ═══
+    function updateCountdown() {
+        const target = new Date('2026-06-15T10:00:00');
+        const now = new Date();
+        const diff = target - now;
+        if (diff <= 0) {
+            document.getElementById('days').textContent = '00';
+            document.getElementById('hours').textContent = '00';
+            document.getElementById('minutes').textContent = '00';
+            document.getElementById('seconds').textContent = '00';
+            return;
+        }
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        document.getElementById('days').textContent = String(d).padStart(2, '0');
+        document.getElementById('hours').textContent = String(h).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(m).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(s).padStart(2, '0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ═══ SCROLL TO SECTION ═══
+    function scrollToSection(id) {
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // ═══ MAP ═══
+    function openMap() {
+        window.open('https://maps.google.com?q=Ballroom+Mewah+Jl+Ahmad+Yani+Jakarta', '_blank');
+    }
+
+    // ═══ ATTENDANCE PILLS ═══
+    function selectAttendance(btn) {
+        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('comment-attendance').value = btn.dataset.value;
+    }
+
+    // ═══ FORM SUBMIT ═══
+    const comments = [];
+    document.getElementById('comment-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('comment-name').value.trim();
+        const attendance = document.getElementById('comment-attendance').value;
+        const guests = document.getElementById('comment-guests').value;
+        const text = document.getElementById('comment-text').value.trim();
+
+        if (!attendance) {
+            showFeedback('Mohon pilih konfirmasi kehadiran.', 'error');
+            return;
+        }
+
+        const comment = { name, attendance, guests, text, date: new Date() };
+        comments.unshift(comment);
+        renderComments();
+
+        showFeedback('Ucapan Anda telah terkirim. Terima kasih! 💛', 'success');
+        this.reset();
+        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+        document.getElementById('comment-attendance').value = '';
+    });
+
+    function renderComments() {
+        const container = document.getElementById('comments-container');
+        const count = document.getElementById('wishesCount');
+        count.textContent = comments.length;
+        if (comments.length === 0) {
+            container.innerHTML = `<div class="empty-wishes"><i class="fas fa-heart empty-icon"></i><p>Belum ada ucapan.</p><p>Jadilah yang pertama!</p></div>`;
+            return;
+        }
+        const labels = { hadir: '✓ Hadir', tidak: '✗ Tidak Hadir', mungkin: '? Mungkin' };
+        const badgeClass = { hadir: 'badge-hadir', tidak: 'badge-tidak', mungkin: 'badge-mungkin' };
+        container.innerHTML = comments.map(c => `
+            <div class="wish-item">
+                <div class="wish-avatar">${c.name.charAt(0).toUpperCase()}</div>
+                <div class="wish-body">
+                    <div class="wish-meta">
+                        <span class="wish-name">${c.name}</span>
+                        <span class="wish-badge ${badgeClass[c.attendance]}">${labels[c.attendance]}</span>
+                        <span class="wish-guests">${c.guests} orang</span>
+                    </div>
+                    <p class="wish-text">"${c.text}"</p>
+                    <span class="wish-time">${formatDate(c.date)}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function formatDate(d) {
+        return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    }
+
+    function showFeedback(msg, type) {
+        const el = document.getElementById('comment-message');
+        el.textContent = msg;
+        el.className = 'form-feedback ' + type;
+        setTimeout(() => { el.className = 'form-feedback'; el.textContent = ''; }, 5000);
+    }
+
+    // ═══ LIGHTBOX ═══
+    function openLightbox(item) {
+        const src = item.querySelector('img').src;
+        document.getElementById('lightboxImg').src = src;
+        document.getElementById('lightbox').classList.add('active');
+    }
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('active');
+    }
+
+    // ═══ URL GUEST NAME ═══
+    const params = new URLSearchParams(window.location.search);
+    const guest = params.get('to') || params.get('nama');
+    if (guest) {
+        const el = document.getElementById('guestName');
+        el.textContent = 'Kepada Yth. ' + decodeURIComponent(guest);
+        el.style.display = 'block';
+    }
+    </script>
 </body>
 </html>
