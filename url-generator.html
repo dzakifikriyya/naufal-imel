@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Generator - Undangan Pernikahan Naufal & Imel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #999;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-generate {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-generate:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-back {
+            background: #ddd;
+            color: #333;
+        }
+
+        .btn-back:hover {
+            background: #ccc;
+        }
+
+        .result-section {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .result-section.active {
+            display: block;
+        }
+
+        .result-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .url-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .url-text {
+            flex: 1;
+            color: #667eea;
+            font-size: 13px;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+            overflow-y: auto;
+            max-height: 60px;
+        }
+
+        .btn-copy {
+            background: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .btn-copy:hover {
+            background: #218838;
+        }
+
+        .btn-copy.copied {
+            background: #6c757d;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-box p {
+            color: #0066cc;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 5px 0;
+        }
+
+        .example {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .example h4 {
+            color: #856404;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .example p {
+            color: #856404;
+            font-size: 12px;
+            margin: 5px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-link"></i> URL Generator</h1>
+        <p class="subtitle">Buat link undangan personal untuk setiap tamu</p>
+
+        <div class="info-box">
+            <p><i class="fas fa-info-circle"></i> <strong>Cara Kerja:</strong></p>
+            <p>1. Masukkan nama tamu</p>
+            <p>2. Klik "GENERATE URL"</p>
+            <p>3. Copy dan share ke tamu via WhatsApp/Email</p>
+            <p>4. Nama tamu akan tampil saat halaman dibuka</p>
+        </div>
+
+        <form id="urlForm">
+            <div class="form-group">
+                <label for="guestName"><i class="fas fa-user"></i> Nama Tamu *</label>
+                <input type="text" id="guestName" placeholder="Contoh: Ipal & Partner" required>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn-generate">
+                    <i class="fas fa-magic"></i> Generate URL
+                </button>
+                <button type="button" class="btn-back" onclick="window.location.href='index.html'">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </button>
+            </div>
+        </form>
+
+        <div id="resultSection" class="result-section">
+            <h3><i class="fas fa-check-circle"></i> URL Berhasil Dibuat!</h3>
+
+            <div class="url-box">
+                <div class="url-text" id="generatedURL"></div>
+                <button class="btn-copy" onclick="copyToClipboard()">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-copy" style="background: #17a2b8; flex: 1;" onclick="shareWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> Share WhatsApp
+                </button>
+                <button class="btn-copy" style="background: #0084ff; flex: 1;" onclick="shareEmail()">
+                    <i class="fas fa-envelope"></i> Share Email
+                </button>
+            </div>
+
+            <div class="example">
+                <h4>📝 Contoh Pesan WhatsApp:</h4>
+                <p>Halo! 👋 Kami mengundang Anda untuk merayakan pernikahan kami. Buka undangan melalui link ini:</p>
+                <p id="exampleURL" style="color: #0066cc;"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const baseURL = window.location.origin + window.location.pathname.replace('url-generator.html', 'index.html');
+
+        document.getElementById('urlForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            generateURL();
+        });
+
+        function generateURL() {
+            const guestName = document.getElementById('guestName').value.trim();
+            
+            if (!guestName) {
+                alert('Masukkan nama tamu terlebih dahulu!');
+                return;
+            }
+
+            const encodedName = encodeURIComponent(guestName);
+            const fullURL = `${baseURL}?to=${encodedName}`;
+
+            document.getElementById('generatedURL').textContent = fullURL;
+            document.getElementById('exampleURL').textContent = fullURL;
+            document.getElementById('resultSection').classList.add('active');
+
+            // Scroll ke hasil
+            setTimeout(() => {
+                document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
+        function copyToClipboard() {
+            const url = document.getElementById('generatedURL').textContent;
+            navigator.clipboard.writeText(url).then(() => {
+                const btn = event.target.closest('button');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                btn.classList.add('copied');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function shareWhatsApp() {
+            const url = document.getElementById('generatedURL').textContent;
+            const guestName = document.getElementById('guestName').value;
+            const message = `Halo ${guestName}! 👋\n\nKami mengundang Anda untuk merayakan pernikahan kami. Buka undangan melalui link ini:\n\n${url}`;
+            const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        function shareEmail() {
+            const url = document.getElementById('generatedURL').textContent;
+            const guestName = document.getElementById('guestName').value;
+            const subject = 'Undangan Pernikahan - Naufal & Imel';
+            const body = `Halo ${guestName},\n\nDengan senang hati kami mengundang Anda untuk merayakan pernikahan kami.\n\nSilahkan buka undangan melalui link berikut:\n${url}\n\nTerima kasih,\nNaufal & Imel`;
+            const mailtoURL = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoURL;
+        }
+    </script>
+</body>
+</html>
