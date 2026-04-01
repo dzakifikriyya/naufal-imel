@@ -1790,8 +1790,24 @@ body {
         document.getElementById('comment-attendance').value = btn.dataset.value;
     }
 
-    // ═══ FORM SUBMIT ═══
-    const comments = [];
+    // ═══ FORM SUBMIT + LOCALSTORAGE ═══
+    const STORAGE_KEY = 'wedding_ucapan_naufal_imel';
+
+    function loadComments() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            return raw ? JSON.parse(raw) : [];
+        } catch(e) { return []; }
+    }
+
+    function saveComments(arr) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); } catch(e) {}
+    }
+
+    // Load existing on page init
+    const comments = loadComments();
+    renderComments();
+
     document.getElementById('comment-form').addEventListener('submit', function(e) {
         e.preventDefault();
         const name = document.getElementById('comment-name').value.trim();
@@ -1804,8 +1820,9 @@ body {
             return;
         }
 
-        const comment = { name, attendance, guests, text, date: new Date() };
+        const comment = { name, attendance, guests, text, date: new Date().toISOString() };
         comments.unshift(comment);
+        saveComments(comments);
         renderComments();
 
         showFeedback('Ucapan Anda telah terkirim. Terima kasih! 💛', 'success');
@@ -1841,7 +1858,7 @@ body {
     }
 
     function formatDate(d) {
-        return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        return new Date(d).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
     }
 
     function showFeedback(msg, type) {
