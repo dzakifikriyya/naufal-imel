@@ -1790,71 +1790,120 @@ body {
         document.getElementById('comment-attendance').value = btn.dataset.value;
     }
 
-    // ═══ FORM SUBMIT + LOCALSTORAGE ═══
-    const STORAGE_KEY = 'wedding_ucapan_naufal_imel';
+    // ═══ GOOGLE SHEETS DATABASE ═══
+    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxYhZ3dyyzoXByoKv738vmYpevDhkbCtUf4mg_BI1qDIXqYo6ePjJteDSWnexn1j1DDfw/exec';
 
-    function loadComments() {
-        try {
-            const raw = localStorage.getItem(STORAGE_KEY);
-            return raw ? JSON.parse(raw) : [];
-        } catch(e) { return []; }
+    // Muat ucapan dari Google Sheets saat halaman dibuka
+    function fetchComments() {
+        const container = document.getElementById('comments-container');
+        const count = document.getElementById('wishesCount');
+        container.innerHTML = `<div class="empty-wishes"><i class="fas fa-spinner fa-spin empty-icon"></i><p>Memuat ucapan...</p></div>`;
+
+        fetch(SHEET_URL)
+            .then(res => res.json())
+            .then(data => {
+                // Data dari sheets: array of object dengan key dari header baris 1
+                // Urutkan dari terbaru (balik array)
+                const reversed = [...data].reverse();
+                renderComments(reversed);
+                count.textContent = reversed.length;
+            })
+            .catch(() => {
+                container.innerHTML = `<div class="empty-wishes"><i class="fas fa-heart empty-icon"></i><p>Belum ada ucapan.</p><p>Jadilah yang pertama!</p></div>`;
+                count.textContent = 0;
+            });
     }
 
-    function saveComments(arr) {
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); } catch(e) {}
-    }
+    fetchComments();
 
-    // Load existing on page init
-    const comments = loadComments();
-    renderComments();
-
+    // Kirim ucapan baru ke Google Sheets
     document.getElementById('comment-form').addEventListener('submit', function(e) {
         e.preventDefault();
-        const name = document.getElementById('comment-name').value.trim();
+        const name     = document.getElementById('comment-name').value.trim();
+        const email    = document.getElementById('comment-email').value.trim();
         const attendance = document.getElementById('comment-attendance').value;
-        const guests = document.getElementById('comment-guests').value;
-        const text = document.getElementById('comment-text').value.trim();
+        const guests   = document.getElementById('comment-guests').value;
+        const text     = document.getElementById('comment-text').value.trim();
 
         if (!attendance) {
             showFeedback('Mohon pilih konfirmasi kehadiran.', 'error');
             return;
         }
 
-        const comment = { name, attendance, guests, text, date: new Date().toISOString() };
-        comments.unshift(comment);
-        saveComments(comments);
-        renderComments();
+        const submitBtn = this.querySelector('.btn-submit');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> <span>Mengirim...</span>`;
 
-        showFeedback('Ucapan Anda telah terkirim. Terima kasih! 💛', 'success');
-        this.reset();
-        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-        document.getElementById('comment-attendance').value = '';
+        const payload = {
+            name,
+            email,
+            attendance,
+            guests,
+            text,
+            date: new Date().toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short' })
+        };
+
+        fetch(SHEET_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            showFeedback('Ucapan Anda telah terkirim. Terima kasih! 💛', 'success');
+            this.reset();
+            document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+            document.getElementById('comment-attendance').value = '';
+            // Tunggu sebentar lalu reload ucapan dari sheets
+            setTimeout(fetchComments, 1500);
+        })
+        .catch(() => {
+            showFeedback('Gagal mengirim. Periksa koneksi internet Anda.', 'error');
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<i class="fas fa-paper-plane"></i> <span>Kirim Ucapan</span><div class="btn-shimmer"></div>`;
+        });
     });
 
-    function renderComments() {
+    function renderComments(data) {
         const container = document.getElementById('comments-container');
         const count = document.getElementById('wishesCount');
-        count.textContent = comments.length;
-        if (comments.length === 0) {
+        count.textContent = data.length;
+
+        if (!data || data.length === 0) {
             container.innerHTML = `<div class="empty-wishes"><i class="fas fa-heart empty-icon"></i><p>Belum ada ucapan.</p><p>Jadilah yang pertama!</p></div>`;
             return;
         }
-        const labels = { hadir: '✓ Hadir', tidak: '✗ Tidak Hadir', mungkin: '? Mungkin' };
+
+        const labels    = { hadir: '✓ Hadir', tidak: '✗ Tidak Hadir', mungkin: '? Mungkin' };
         const badgeClass = { hadir: 'badge-hadir', tidak: 'badge-tidak', mungkin: 'badge-mungkin' };
-        container.innerHTML = comments.map(c => `
+
+        container.innerHTML = data.map(c => {
+            // Dukung key dari Google Sheets (lowercase header)
+            const nama      = c.nama      || c.name  || '';
+            const kehadiran = c.kehadiran || c.attendance || '';
+            const jumlah    = c.jumlah_tamu || c.guests || '';
+            const ucapan    = c.ucapan    || c.text  || '';
+            const tanggal   = c.tanggal   || c.date  || '';
+            const initial   = nama ? nama.charAt(0).toUpperCase() : '?';
+            const badge     = badgeClass[kehadiran] || '';
+            const label     = labels[kehadiran]     || kehadiran;
+
+            return `
             <div class="wish-item">
-                <div class="wish-avatar">${c.name.charAt(0).toUpperCase()}</div>
+                <div class="wish-avatar">${initial}</div>
                 <div class="wish-body">
                     <div class="wish-meta">
-                        <span class="wish-name">${c.name}</span>
-                        <span class="wish-badge ${badgeClass[c.attendance]}">${labels[c.attendance]}</span>
-                        <span class="wish-guests">${c.guests} orang</span>
+                        <span class="wish-name">${nama}</span>
+                        ${badge ? `<span class="wish-badge ${badge}">${label}</span>` : ''}
+                        ${jumlah ? `<span class="wish-guests">${jumlah} orang</span>` : ''}
                     </div>
-                    <p class="wish-text">"${c.text}"</p>
-                    <span class="wish-time">${formatDate(c.date)}</span>
+                    <p class="wish-text">"${ucapan}"</p>
+                    <span class="wish-time">${tanggal}</span>
                 </div>
-            </div>
-        `).join('');
+            </div>`;
+        }).join('');
     }
 
     function formatDate(d) {
