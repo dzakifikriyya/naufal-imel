@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan Digital - Naufal & Imel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header/Sampul -->
+    <section class="header">
+        <div class="decorative-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        <div class="header-content">
+            <div class="header-animation">
+                <h1><i class="fas fa-heart"></i> Kami Mengundang Anda <i class="fas fa-heart"></i></h1>
+            </div>
+            <p class="names">Naufal & Imel</p>
+            <p class="subtitle">Merayakan Cinta dan Komitmen</p>
+            <div class="scroll-indicator">
+                <span>Scroll untuk lanjut</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <button class="scroll-button" onclick="scrollToSection('main')">
+                <i class="fas fa-arrow-down"></i> Buka Undangan
+            </button>
+        </div>
+    </section>
+
+    <!-- Konten Utama -->
+    <section id="main" class="main-content">
+        <div class="container">
+            <div class="invitation-card">
+                <h2>Dengan Mengucapkan Puji Syukur</h2>
+                <p>Kami memohon do'a dan restu untuk pernikahan kami</p>
+                
+                <div class="couple-names">
+                    <div class="groom">
+                        <h3>Budi Santoso</h3>
+                        <p>Putra dari Bapak Ahmad & Ibu Ratna</p>
+                    </div>
+                    <div class="separator">&</div>
+                    <div class="bride">
+                        <h3>Siti Nurhaliza</h3>
+                        <p>Putri dari Bapak Hasan & Ibu Laila</p>
+                    </div>
+                </div>
+
+                <div class="event-details">
+                    <div class="event-item">
+                        <h4>📅 Hari & Tanggal</h4>
+                        <p>Sabtu, 15 Juni 2026</p>
+                    </div>
+                    <div class="event-item">
+                        <h4>⏰ Waktu</h4>
+                        <p>Akad Nikah: 10:00 - 11:30 WIB<br>Resepsi: 12:00 - 17:00 WIB</p>
+                    </div>
+                    <div class="event-item">
+                        <h4>📍 Lokasi</h4>
+                        <p>Ballroom Mewah<br>Jl. Ahmad Yani No. 123<br>Jakarta Pusat, 12345</p>
+                        <button class="map-button" onclick="openMap()">Lihat Lokasi</button>
+                    </div>
+                </div>
+
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="days">0</span>
+                        <span class="countdown-label">Hari</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="hours">0</span>
+                        <span class="countdown-label">Jam</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="minutes">0</span>
+                        <span class="countdown-label">Menit</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="seconds">0</span>
+                        <span class="countdown-label">Detik</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP -->
+    <section id="rsvp" class="rsvp-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-icon"><i class="fas fa-envelope"></i></span>
+                Konfirmasi Kehadiran
+            </h2>
+            <p class="section-subtitle">Kami tunggu kehadiran Anda</p>
+            <form id="rsvp-form" class="rsvp-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-user"></i> Nama Lengkap *</label>
+                        <input type="text" id="name" name="name" placeholder="Masukkan nama lengkap" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Email *</label>
+                        <input type="email" id="email" name="email" placeholder="Masukkan email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="attendance"><i class="fas fa-check-circle"></i> Konfirmasi Kehadiran *</label>
+                        <select id="attendance" name="attendance" required>
+                            <option value="">-- Pilih --</option>
+                            <option value="hadir">✓ Hadir</option>
+                            <option value="tidak">✗ Tidak Hadir</option>
+                            <option value="mungkin">? Mungkin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="guests"><i class="fas fa-users"></i> Jumlah Tamu (Orang) *</label>
+                        <input type="number" id="guests" name="guests" min="1" max="5" placeholder="1" required>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="message"><i class="fas fa-comment"></i> Pesan untuk Pengantin</label>
+                    <textarea id="message" name="message" rows="3" placeholder="Sampaikan ucapan atau saran Anda..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Kirim Konfirmasi
+                </button>
+            </form>
+            <div id="rsvp-message" class="rsvp-message"></div>
+        </div>
+    </section>
+
+    <!-- Komentar & Ucapan -->
+    <section id="comments" class="comments-section">
+        <div class="container">
+            <h2 class="section-title">Ucapan & Doa dari Tamu</h2>
+            
+            <div class="comment-form">
+                <h3>Tinggalkan Ucapan Anda</h3>
+                <form id="comment-form">
+                    <div class="form-group">
+                        <input type="text" id="comment-name" placeholder="Nama Anda *" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="comment-text" placeholder="Ucapan, doa, atau saran Anda... *" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Kirim Ucapan</button>
+                </form>
+                <div id="comment-message" class="comment-message"></div>
+            </div>
+
+            <div class="comments-list">
+                <h3>Ucapan Masuk</h3>
+                <div id="comments-container" class="comments-container">
+                    <p class="no-comments">Belum ada ucapan. Jadilah yang pertama!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Undangan Pernikahan Digital | Naufal & Imel</p>
+        <p>Terima kasih telah merayakan momen spesial kami</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

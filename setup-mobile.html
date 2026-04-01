@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Akses Mobile - Undangan Pernikahan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .content {
+            padding: 30px 20px;
+        }
+        
+        .section {
+            margin-bottom: 35px;
+        }
+        
+        .section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-icon {
+            font-size: 24px;
+        }
+        
+        .steps {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .step {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .step:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .step-content p {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        
+        .code-block {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 12px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            margin-top: 8px;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin-bottom: 20px;
+        }
+        
+        .highlight strong {
+            color: #856404;
+        }
+        
+        .option-box {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .option-box:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+        }
+        
+        .option-box h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .option-box p {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .difficulty {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .difficulty.easy {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .difficulty.medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .difficulty.hard {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .checklist {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .checklist label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: #333;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .checklist input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .qr-section {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .qr-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .qr-box {
+            display: inline-block;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .qr-box img {
+            max-width: 200px;
+            height: auto;
+        }
+        
+        .qr-box p {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .button {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #856404;
+        }
+        
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📱 Setup Akses di Handphone</h1>
+            <p>Panduan lengkap membuka website undangan di mobile device</p>
+        </div>
+        
+        <div class="content">
+            <!-- QUICK START -->
+            <div class="section">
+                <h2><span class="section-icon">⚡</span> Quick Start (5 Menit)</h2>
+                
+                <div class="highlight">
+                    <strong>🎯 Rekomendasi Tercepat:</strong> Gunakan metode IP Address untuk WiFi rumah atau ngrok untuk akses dari mana saja.
+                </div>
+                
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Pastikan Laragon Berjalan</h3>
+                            <p>✅ Laragon harus aktif dengan Apache hijau</p>
+                            <p>✅ Website di folder: <code>c:\laragon\www\wedding</code></p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Cari IP Address Komputer</h3>
+                            <p>Buka Command Prompt dan ketik:</p>
+                            <div class="code-block">ipconfig</div>
+                            <p>Catat IPv4 Address (contoh: 192.168.1.100)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Buka di Handphone</h3>
+                            <p>Browser handphone → ketik:</p>
+                            <div class="code-block">http://192.168.1.100/wedding</div>
+                            <p>(Ganti IP sesuai hasil langkah 2)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Selesai! 🎉</h3>
+                            <p>Website akan muncul di handphone Anda</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- OPTIONS -->
+            <div class="section">
+                <h2><span class="section-icon">🔧</span> Pilih Metode Sesuai Kebutuhan</h2>
+                
+                <div class="option-box">
+                    <h3>Opsi 1: IP Address (Recommended untuk WiFi)</h3>
+                    <p><strong>Cocok untuk:</strong> Akses dari WiFi rumah/kantor yang sama</p>
+                    <p><strong>Kelebihan:</strong> Mudah setup, cepat, tidak perlu tools tambahan</p>
+                    <p><strong>Kekurangan:</strong> Hanya dalam WiFi sama, IP bisa berubah</p>
+                    <span class="difficulty easy">MUDAH</span>
+                </div>
+                
+                <div class="option-box">
+                    <h3>Opsi 2: ngrok (Akses Global)</h3>
+                    <p><strong>Cocok untuk:</strong> Akses dari mana saja (luar WiFi)</p>
+                    <p><strong>Kelebihan:</strong> Bisa diakses dari internet publik, cocok untuk testing</p>
+                    <p><strong>Kekurangan:</strong> Perlu setup tool, URL berubah setiap restart</p>
+                    <span class="difficulty medium">SEDANG</span>
+                </div>
+                
+                <div class="option-box">
+                    <h3>Opsi 3: Hosting Online (Professional)</h3>
+                    <p><strong>Cocok untuk:</strong> Acara formal, perlu permanent link</p>
+                    <p><strong>Kelebihan:</strong> Stabil, professional, shareable link permanen</p>
+                    <p><strong>Kekurangan:</strong> Butuh setup, bisa berbayar</p>
+                    <span class="difficulty hard">KOMPLEKS</span>
+                </div>
+            </div>
+            
+            <!-- CHECKLIST -->
+            <div class="section">
+                <h2><span class="section-icon">✅</span> Pre-Launch Checklist</h2>
+                
+                <div class="checklist">
+                    <label>
+                        <input type="checkbox">
+                        Laragon sudah running (Apache hijau)
+                    </label>
+                    <label>
+                        <input type="checkbox">
+                        Website ada di folder c:\laragon\www\wedding
+                    </label>
+                    <label>
+                        <input type="checkbox">
+                        IP Address/URL sudah disiapkan
+                    </label>
+                    <label>
+                        <input type="checkbox">
+                        Test akses dari handphone
+                    </label>
+                    <label>
+                        <input type="checkbox">
+                        Coba semua fitur (foto, RSVP, komentar)
+                    </label>
+                    <label>
+                        <input type="checkbox">
+                        Test di browser berbeda (Chrome, Safari, Firefox)
+                    </label>
+                    <label>
+                        <input type="checkbox">
+                        Cek responsive design (portrait & landscape)
+                    </label>
+                    <label>
+                        <input type="checkbox">
+                        Update countdown date sesuai acara
+                    </label>
+                </div>
+            </div>
+            
+            <!-- QR CODE -->
+            <div class="section">
+                <h2><span class="section-icon">📲</span> Bagikan via QR Code</h2>
+                
+                <div class="success">
+                    <strong>💡 Pro Tip:</strong> Generate QR Code dari URL untuk sharing yang lebih mudah!
+                </div>
+                
+                <div class="qr-section">
+                    <h3>Steps:</h3>
+                    <ol style="text-align: left; display: inline-block;">
+                        <li>Kunjungi qr-code-generator.com</li>
+                        <li>Input URL website (IP Address atau ngrok)</li>
+                        <li>Download QR Code</li>
+                        <li>Bagikan ke undangan (WhatsApp, Email, Cetak)</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <!-- TROUBLESHOOTING -->
+            <div class="section">
+                <h2><span class="section-icon">🔍</span> Troubleshooting</h2>
+                
+                <div class="warning">
+                    <strong>❌ "ERR_CONNECTION_REFUSED"</strong><br>
+                    Laragon tidak berjalan. Solusi: Buka Laragon > Start All
+                </div>
+                
+                <div class="warning">
+                    <strong>❌ "ERR_NAME_NOT_RESOLVED"</strong><br>
+                    IP Address salah atau HP tidak di WiFi sama. Solusi: Cek ipconfig ulang, pastikan WiFi sama
+                </div>
+                
+                <div class="warning">
+                    <strong>❌ "Tampilan berantakan di HP"</strong><br>
+                    Cache lama. Solusi: Clear cache browser atau buka Incognito mode
+                </div>
+            </div>
+            
+            <!-- RESOURCES -->
+            <div class="section">
+                <h2><span class="section-icon">🔗</span> Resources & Links</h2>
+                
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
+                    <p><strong>📖 Download ngrok:</strong> <a href="https://ngrok.com/download" target="_blank">ngrok.com/download</a></p>
+                    <p><strong>🔲 QR Code Generator:</strong> <a href="https://www.qr-code-generator.com/" target="_blank">qr-code-generator.com</a></p>
+                    <p><strong>☁️ Free Hosting:</strong> Netlify, Vercel, Heroku</p>
+                    <p><strong>📚 Dokumentasi lengkap:</strong> Buka file AKSES_MOBILE.md</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>📌 Simpan halaman ini untuk referensi cepat!</p>
+            <p>Untuk panduan detail, buka file AKSES_MOBILE.md</p>
+        </div>
+    </div>
+</body>
+</html>
