@@ -1790,23 +1790,25 @@ body {
         document.getElementById('comment-attendance').value = btn.dataset.value;
     }
 
-    // ═══ GOOGLE SHEETS DATABASE ═══
-    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxYhZ3dyyzoXByoKv738vmYpevDhkbCtUf4mg_BI1qDIXqYo6ePjJteDSWnexn1j1DDfw/exec';
+    // ═══ FIREBASE REALTIME DATABASE ═══
+    const FIREBASE_URL = 'https://test-e4d84-default-rtdb.asia-southeast1.firebasedatabase.app/ucapan';
 
-    // Muat ucapan dari Google Sheets saat halaman dibuka
+    // Muat ucapan dari Firebase saat halaman dibuka
     function fetchComments() {
         const container = document.getElementById('comments-container');
         const count = document.getElementById('wishesCount');
         container.innerHTML = `<div class="empty-wishes"><i class="fas fa-spinner fa-spin empty-icon"></i><p>Memuat ucapan...</p></div>`;
 
-        fetch(SHEET_URL)
+        fetch(FIREBASE_URL + '.json')
             .then(res => res.json())
             .then(data => {
-                // Data dari sheets: array of object dengan key dari header baris 1
-                // Urutkan dari terbaru (balik array)
-                const reversed = [...data].reverse();
-                renderComments(reversed);
-                count.textContent = reversed.length;
+                if (!data) {
+                    renderComments([]);
+                    return;
+                }
+                // Firebase mengembalikan object, konversi ke array lalu balik urutannya
+                const arr = Object.values(data).reverse();
+                renderComments(arr);
             })
             .catch(() => {
                 container.innerHTML = `<div class="empty-wishes"><i class="fas fa-heart empty-icon"></i><p>Belum ada ucapan.</p><p>Jadilah yang pertama!</p></div>`;
@@ -1816,14 +1818,14 @@ body {
 
     fetchComments();
 
-    // Kirim ucapan baru ke Google Sheets
+    // Kirim ucapan baru ke Firebase
     document.getElementById('comment-form').addEventListener('submit', function(e) {
         e.preventDefault();
-        const name     = document.getElementById('comment-name').value.trim();
-        const email    = document.getElementById('comment-email').value.trim();
+        const name       = document.getElementById('comment-name').value.trim();
+        const email      = document.getElementById('comment-email').value.trim();
         const attendance = document.getElementById('comment-attendance').value;
-        const guests   = document.getElementById('comment-guests').value;
-        const text     = document.getElementById('comment-text').value.trim();
+        const guests     = document.getElementById('comment-guests').value;
+        const text       = document.getElementById('comment-text').value.trim();
 
         if (!attendance) {
             showFeedback('Mohon pilih konfirmasi kehadiran.', 'error');
@@ -1843,18 +1845,18 @@ body {
             date: new Date().toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short' })
         };
 
-        fetch(SHEET_URL, {
+        // Firebase REST API: POST ke /ucapan.json untuk tambah data baru
+        fetch(FIREBASE_URL + '.json', {
             method: 'POST',
-            mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         })
+        .then(res => res.json())
         .then(() => {
             showFeedback('Ucapan Anda telah terkirim. Terima kasih! 💛', 'success');
             this.reset();
             document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
             document.getElementById('comment-attendance').value = '';
-            // Tunggu sebentar lalu reload ucapan dari sheets
             setTimeout(fetchComments, 1500);
         })
         .catch(() => {
