@@ -1352,10 +1352,9 @@ body {
                 <i class="fas fa-star divider-icon"></i>
                 <span class="divider-line"></span>
             </div>
--6
+
             <p class="hero-date animate-fadeup" style="--d:0.9s">Sabtu, 04 Juli 2026</p>
-            <p class="hero-location animate-fadeup" style="--d:1.0s">Puri Cendana Jl. Taman Merbabu Blok C 18 No.19 Rt06/008 Tambun Selatan Desa   Sumberjaya
-</p>
+            <p class="hero-location animate-fadeup" style="--d:1.0s">Puri Cendana Jl. Taman Merbabu Blok C 18 No.19 Rt06/008 Tambun Selatan Desa Sumberjaya</p>
 
             <p class="guest-name" id="guestName"></p>
 
@@ -1443,8 +1442,7 @@ body {
                     <div class="event-card-detail">
                         <p><i class="fas fa-calendar-alt"></i> Sabtu, 04 Juli 2026</p>
                         <p><i class="fas fa-clock"></i> 09:00 – Selesai WIB</p>
-                        <p><i class="fas fa-map-marker-alt"></i>Puri Cendana Jl. Taman Merbabu Blok C 18 No.19 Rt06/008 Tambun Selatan Desa   Sumberjaya
-</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Puri Cendana Jl. Taman Merbabu Blok C 18 No.19 Rt06/008 Tambun Selatan Desa Sumberjaya</p>
                     </div>
                 </div>
 
@@ -1456,8 +1454,7 @@ body {
                     <div class="event-card-detail">
                         <p><i class="fas fa-calendar-alt"></i> Sabtu, 04 Juli 2026</p>
                         <p><i class="fas fa-clock"></i> 11:00 – Selesai WIB</p>
-                        <p><i class="fas fa-map-marker-alt"></i>Puri Cendana Jl. Taman Merbabu Blok C 18 No.19 Rt06/008 Tambun Selatan Desa   Sumberjaya
-</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Puri Cendana Jl. Taman Merbabu Blok C 18 No.19 Rt06/008 Tambun Selatan Desa Sumberjaya</p>
                     </div>
                     <button class="btn-map" onclick="openMap()">
                         <i class="fas fa-location-dot"></i> Lihat Peta
@@ -1676,8 +1673,8 @@ body {
     <footer class="footer">
         <div class="footer-ornament"></div>
         <div class="footer-content">
-            <div class="footer-names">Naufal & Imel</div>
-            <div class="footer-date">15 . 06 . 2026</div>
+            <div class="footer-names">Naufhal & Imelda</div>
+            <div class="footer-date">04 . 07 . 2026</div>
             <div class="footer-divider">
                 <span></span><i class="fas fa-heart"></i><span></span>
             </div>
@@ -1754,7 +1751,7 @@ body {
 
     // ═══ COUNTDOWN ═══
     function updateCountdown() {
-        const target = new Date('2026-06-15T10:00:00');
+        const target = new Date('2026-07-04T09:00:00');
         const now = new Date();
         const diff = target - now;
         if (diff <= 0) {
@@ -1781,9 +1778,9 @@ body {
         document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
     }
 
-    // ═══ MAP ═══
+    // ═══ MAP ═══ (UPDATED)
     function openMap() {
-        window.open('https://maps.google.com?q=Ballroom+Mewah+Jl+Ahmad+Yani+Jakarta', '_blank');
+        window.open('https://maps.google.com?q=Puri+Cendana+Jl+Taman+Merbabu+Blok+C+18+No+19+Tambun+Selatan+Sumberjaya', '_blank');
     }
 
     // ═══ ATTENDANCE PILLS ═══
@@ -1805,8 +1802,6 @@ body {
         fetch(SHEET_URL)
             .then(res => res.json())
             .then(data => {
-                // Data dari sheets: array of object dengan key dari header baris 1
-                // Urutkan dari terbaru (balik array)
                 const reversed = [...data].reverse();
                 renderComments(reversed);
                 count.textContent = reversed.length;
@@ -1822,11 +1817,11 @@ body {
     // Kirim ucapan baru ke Google Sheets
     document.getElementById('comment-form').addEventListener('submit', function(e) {
         e.preventDefault();
-        const name     = document.getElementById('comment-name').value.trim();
-        const email    = document.getElementById('comment-email').value.trim();
+        const name       = document.getElementById('comment-name').value.trim();
+        const email      = document.getElementById('comment-email').value.trim();
         const attendance = document.getElementById('comment-attendance').value;
-        const guests   = document.getElementById('comment-guests').value;
-        const text     = document.getElementById('comment-text').value.trim();
+        const guests     = document.getElementById('comment-guests').value;
+        const text       = document.getElementById('comment-text').value.trim();
 
         if (!attendance) {
             showFeedback('Mohon pilih konfirmasi kehadiran.', 'error');
@@ -1857,7 +1852,6 @@ body {
             this.reset();
             document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
             document.getElementById('comment-attendance').value = '';
-            // Tunggu sebentar lalu reload ucapan dari sheets
             setTimeout(fetchComments, 1500);
         })
         .catch(() => {
@@ -1879,16 +1873,15 @@ body {
             return;
         }
 
-        const labels    = { hadir: '✓ Hadir', tidak: '✗ Tidak Hadir', mungkin: '? Mungkin' };
+        const labels     = { hadir: '✓ Hadir', tidak: '✗ Tidak Hadir', mungkin: '? Mungkin' };
         const badgeClass = { hadir: 'badge-hadir', tidak: 'badge-tidak', mungkin: 'badge-mungkin' };
 
         container.innerHTML = data.map(c => {
-            // Dukung key dari Google Sheets (lowercase header)
-            const nama      = c.nama      || c.name  || '';
-            const kehadiran = c.kehadiran || c.attendance || '';
-            const jumlah    = c.jumlah_tamu || c.guests || '';
-            const ucapan    = c.ucapan    || c.text  || '';
-            const tanggal   = c.tanggal   || c.date  || '';
+            const nama      = c.nama      || c.name       || '';
+            const kehadiran = c.kehadiran || c.attendance  || '';
+            const jumlah    = c.jumlah_tamu || c.guests   || '';
+            const ucapan    = c.ucapan    || c.text       || '';
+            const tanggal   = c.tanggal   || c.date       || '';
             const initial   = nama ? nama.charAt(0).toUpperCase() : '?';
             const badge     = badgeClass[kehadiran] || '';
             const label     = labels[kehadiran]     || kehadiran;
@@ -1907,10 +1900,6 @@ body {
                 </div>
             </div>`;
         }).join('');
-    }
-
-    function formatDate(d) {
-        return new Date(d).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
     }
 
     function showFeedback(msg, type) {
