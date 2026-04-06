@@ -59,14 +59,14 @@
             transform: rotate(-15deg) scale(-1);
         }
 
-        /* Hero Section */
+        /* Luxury Hero Section */
         .hero {
             position: relative;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,249,250,0.9) 100%);
+            background: radial-gradient(ellipse at center, rgba(212,175,55,0.1) 0%, rgba(255,255,255,0.95) 50%, rgba(248,249,250,0.95) 100%);
             overflow: hidden;
         }
 
@@ -80,8 +80,25 @@
             background-image: url('https://images.unsplash.com/photo-1519741497675-19ec5f9c542d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
             background-size: cover;
             background-position: center;
-            opacity: 0.15;
+            opacity: 0.08;
             z-index: -1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(212,175,55,0.05) 60deg, transparent 120deg, rgba(212,175,55,0.05) 180deg, transparent 240deg, rgba(212,175,55,0.05) 300deg, transparent 360deg);
+            animation: rotate 60s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .hero-content {
@@ -92,33 +109,68 @@
             z-index: 2;
         }
 
+        .hero-content::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            right: -100px;
+            bottom: -100px;
+            background: radial-gradient(circle at center, rgba(212,175,55,0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
         .dear-text {
             font-family: 'Great Vibes', cursive;
-            font-size: 3rem;
+            font-size: 4rem;
             color: #d4af37;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             font-weight: 400;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
         }
 
         .btn-open {
             display: inline-block;
-            padding: 18px 50px;
-            background: linear-gradient(135deg, #d4af37, #f5e07a);
+            padding: 20px 60px;
+            background: linear-gradient(135deg, #d4af37 0%, #f5e07a 50%, #d4af37 100%);
             color: white;
             text-decoration: none;
             border-radius: 50px;
-            font-weight: 500;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            transition: all 0.4s ease;
             border: none;
             cursor: pointer;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-open::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-open:hover::before {
+            left: 100%;
         }
 
         .btn-open:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4), inset 0 1px 0 rgba(255,255,255,0.3);
         }
 
         /* Main Content */
@@ -194,54 +246,153 @@
             font-weight: 500;
         }
 
-        /* Couple Section */
+        /* Luxury Couple Section */
         .couple-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 60px;
+            gap: 80px;
             flex-wrap: wrap;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+        }
+
+        .couple-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 1;
         }
 
         .couple-card {
             text-align: center;
             flex: 1;
-            min-width: 300px;
+            min-width: 350px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .couple-image-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+
+        .couple-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            background: linear-gradient(135deg, #d4af37, #f5e07a, #d4af37);
+            border-radius: 50%;
+            z-index: -1;
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .couple-image-wrapper::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            background: white;
+            border-radius: 50%;
+            z-index: -1;
         }
 
         .couple-image {
-            width: 280px;
-            height: 280px;
+            width: 320px;
+            height: 320px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 30px;
-            border: 6px solid #d4af37;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border: 8px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #d4af37, #f5e07a) border-box;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15), 
+                        inset 0 0 0 2px rgba(212,175,55,0.3),
+                        inset 0 0 20px rgba(212,175,55,0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .couple-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.2), 
+                        inset 0 0 0 2px rgba(212,175,55,0.5),
+                        inset 0 0 30px rgba(212,175,55,0.2);
         }
 
         .couple-name {
             font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
+            font-size: 2.8rem;
             color: #2c3e50;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #2c3e50, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .couple-parents {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #7f8c8d;
             font-style: italic;
-            line-height: 1.5;
+            line-height: 1.6;
+            background: rgba(212,175,55,0.05);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(212,175,55,0.1);
         }
 
         .couple-and {
             font-family: 'Great Vibes', cursive;
-            font-size: 3rem;
+            font-size: 4rem;
             color: #d4af37;
             align-self: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 3;
+        }
+
+        .couple-and::before {
+            content: '❦';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: #d4af37;
+            opacity: 0.6;
+        }
+
+        .couple-and::after {
+            content: '❦';
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: #d4af37;
+            opacity: 0.6;
         }
 
         /* Event Cards */
@@ -333,11 +484,11 @@
             transform: translateY(-2px);
         }
 
-        /* Gallery */
+        /* Luxury Gallery */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -345,21 +496,47 @@
         .gallery-item {
             position: relative;
             overflow: hidden;
-            border-radius: 15px;
-            height: 300px;
+            border-radius: 25px;
+            height: 350px;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(135deg, #d4af37, #f5e07a, #d4af37);
+            border-radius: 25px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: brightness(0.95);
         }
 
         .gallery-item:hover img {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(2deg);
+            filter: brightness(1.05);
         }
 
         .gallery-overlay {
@@ -368,12 +545,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.8), rgba(245, 224, 122, 0.8));
+            background: linear-gradient(135deg, rgba(212,175,55,0.9), rgba(245,224,122,0.9));
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: all 0.4s ease;
+            border-radius: 25px;
         }
 
         .gallery-item:hover .gallery-overlay {
@@ -381,8 +559,14 @@
         }
 
         .gallery-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: white;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-icon {
+            transform: scale(1);
         }
 
         /* Wishes Form */
@@ -1020,13 +1204,17 @@
             <p class="section-subtitle">Yang dipersatukan dalam cinta</p>
             <div class="couple-container">
                 <div class="couple-card">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Mempelai Pria" class="couple-image">
+                    <div class="couple-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Mempelai Pria" class="couple-image">
+                    </div>
                     <h3 class="couple-name">Ahmad Fadli</h3>
                     <p class="couple-parents">Putra dari Bapak H. Muhammad Yusuf<br>& Ibu Hj. Siti Aminah</p>
                 </div>
                 <div class="couple-and">&</div>
                 <div class="couple-card">
-                    <img src="https://images.unsplash.com/photo-1494768448245-8a673f1a8a3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Mempelai Wanita" class="couple-image">
+                    <div class="couple-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1494768448245-8a673f1a8a3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Mempelai Wanita" class="couple-image">
+                    </div>
                     <h3 class="couple-name">Siti Nurhaliza</h3>
                     <p class="couple-parents">Putri dari Bapak H. Ahmad Wijaya<br>& Ibu Hj. Dewi Ratnasari</p>
                 </div>
